@@ -12,7 +12,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * The object publishes methods that send messages that have reads from {@link com.kong.IEventReader}
  * content onto the Kafka broker defined in {@link /src/resources/config.properties}
  */
-public class KafkaEventProducer extends AbstractKafkaSimple {
+public class KafkaEventProducer extends AbstractKafka {
 
     private org.apache.kafka.clients.producer.KafkaProducer<String, String> kafkaProducer;
     private final AtomicBoolean closed = new AtomicBoolean(false);

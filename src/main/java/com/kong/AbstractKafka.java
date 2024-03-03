@@ -3,11 +3,11 @@ package com.kong;
 import org.apache.log4j.Logger;
 
 /**
- * The type Abstract class SimpleKafka
+ * The type Abstract class Kafka
  */
-public abstract class AbstractKafkaSimple {
+public abstract class AbstractKafka {
 
-    private final Logger log = Logger.getLogger(AbstractKafkaSimple.class.getName());
+    private final Logger log = Logger.getLogger(AbstractKafka.class.getName());
 
     /**
      * Instantiates a new Abstract class.
@@ -15,7 +15,7 @@ public abstract class AbstractKafkaSimple {
      * This abstract class's constructor provides graceful
      * shutdown behavior for Kafka producers and consumers
      */
-    public AbstractKafkaSimple() {
+    public AbstractKafka() {
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             try {
                 shutdown();

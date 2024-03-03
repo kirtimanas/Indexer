@@ -15,7 +15,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * from a Kafka cluster. The class provides functionality for the
  * {@link org.apache.kafka.clients.consumer.KafkaConsumer}.
  */
-public class KafkaEventConsumer extends AbstractKafkaSimple{
+public class KafkaEventConsumer extends AbstractKafka {
 
     private final int TIME_OUT_MS = 5000;
     static Logger log = Logger.getLogger(KafkaEventConsumer.class.getName());
