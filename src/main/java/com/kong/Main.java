@@ -10,12 +10,12 @@ public class Main {
         switch(mode.toLowerCase(Locale.ROOT)) {
             case "producer":
                 System.out.println("Starting the Producer\n");
-                new SimpleProducer(new FileBasedEventReader()).runAlways(null);
+                new KafkaEventProducer(new FileBasedEventReader()).runAlways(null);
                 break;
 
             case "consumer":
                 System.out.println("Starting the Consumer\n");
-                new SimpleConsumer().runAlways(new OpenSearchBatchMessageProcessorImpl());
+                new KafkaEventConsumer().runAlways(new OpenSearchBatchMessageProcessorImpl());
                 break;
         }
     }

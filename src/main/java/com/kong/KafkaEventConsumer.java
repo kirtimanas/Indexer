@@ -10,14 +10,19 @@ import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class SimpleConsumer extends AbstractKafkaSimple{
+/**
+ * The type KafkaEventConsumer is used to consume messages
+ * from a Kafka cluster. The class provides functionality for the
+ * {@link org.apache.kafka.clients.consumer.KafkaConsumer}.
+ */
+public class KafkaEventConsumer extends AbstractKafkaSimple{
 
     private final int TIME_OUT_MS = 5000;
-    static Logger log = Logger.getLogger(SimpleConsumer.class.getName());
+    static Logger log = Logger.getLogger(KafkaEventConsumer.class.getName());
     private final AtomicBoolean closed = new AtomicBoolean(false);
     private KafkaConsumer<String, String> kafkaConsumer = null;
 
-    public SimpleConsumer() {
+    public KafkaEventConsumer() {
     }
 
     public KafkaConsumer<String, String> getKafkaConsumer() {
@@ -45,6 +50,17 @@ public class SimpleConsumer extends AbstractKafkaSimple{
         if( this.getKafkaConsumer() != null) this.getKafkaConsumer().close();
     }
 
+    /**
+     * The runAlways method retrieves a collection of ConsumerRecords continuously.
+     * The number of max number of records retrieved in each polling session back to
+     * the Kafka broker is defined by the property max.poll.records as published by
+     * the class {@link com.kong.PropertiesHelper} object
+     *
+     * @param callback the callback function that processes messages retrieved
+     *                 from Kafka
+     * @throws Exception the Exception that will get thrown upon an error
+     */
+    //TODO topic is hardcoded here, pass it via constructor or make it configurable
     @Override
     public void runAlways(OpenSearchBatchMessageProcessorImpl callback) throws Exception {
         Properties props = PropertiesHelper.getProperties();
@@ -74,9 +90,5 @@ public class SimpleConsumer extends AbstractKafkaSimple{
             close();
         }
 
-    }
-
-    public static void main(String[] args) throws Exception {
-        new SimpleConsumer().runAlways(new OpenSearchBatchMessageProcessorImpl());
     }
 }

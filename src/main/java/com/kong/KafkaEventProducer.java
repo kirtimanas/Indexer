@@ -1,6 +1,5 @@
 package com.kong;
 
-import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.log4j.Logger;
 
@@ -8,14 +7,19 @@ import java.util.Properties;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class SimpleProducer extends AbstractKafkaSimple {
+/**
+ * The type KafkaEventProducer is a wrapper class for {@link org.apache.kafka.clients.producer.KafkaProducer}.
+ * The object publishes methods that send messages that have reads from {@link com.kong.IEventReader}
+ * content onto the Kafka broker defined in {@link /src/resources/config.properties}
+ */
+public class KafkaEventProducer extends AbstractKafkaSimple {
 
-    private KafkaProducer<String, String> kafkaProducer;
+    private org.apache.kafka.clients.producer.KafkaProducer<String, String> kafkaProducer;
     private final AtomicBoolean closed = new AtomicBoolean(false);
-    private final Logger log = Logger.getLogger(SimpleProducer.class.getName());
+    private final Logger log = Logger.getLogger(KafkaEventProducer.class.getName());
     private final IEventReader eventReader;
 
-    public SimpleProducer(IEventReader eventReader) {
+    public KafkaEventProducer(IEventReader eventReader) {
         this.eventReader = eventReader;
     }
 
@@ -33,7 +37,7 @@ public class SimpleProducer extends AbstractKafkaSimple {
             //Read from file here
             String message = this.eventReader.getNextEvent();
             this.send(key, message);
-            Thread.sleep(5000);
+            Thread.sleep(100);
         }
     }
 
@@ -45,10 +49,10 @@ public class SimpleProducer extends AbstractKafkaSimple {
         getKafkaProducer().send(producerRecord);
     }
 
-    private synchronized KafkaProducer<String, String> getKafkaProducer() throws Exception {
+    private synchronized org.apache.kafka.clients.producer.KafkaProducer<String, String> getKafkaProducer() throws Exception {
         if (this.kafkaProducer == null) {
             Properties props = PropertiesHelper.getProperties();
-            this.kafkaProducer = new KafkaProducer<>(props);
+            this.kafkaProducer = new org.apache.kafka.clients.producer.KafkaProducer<>(props);
         }
         return this.kafkaProducer;
     }
