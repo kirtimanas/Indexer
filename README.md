@@ -125,17 +125,17 @@ Java version: 21.0.2, vendor: Homebrew, runtime: /opt/homebrew/Cellar/openjdk/21
 Default locale: en_IN, platform encoding: UTF-8
 OS name: "mac os x", version: "14.3.1", arch: "aarch64", family: "mac"
 ```
-# Starting the streaming producer
+# Starting the file based producer
 
 In a new terminal window, go to the directory in which this code is installed and execute the following command:
-
+(This reads entry from **stream.jsonl file in src/main/java/resources**)
 ```shell
 sh runProducer.sh
 ```
 
-You see a steady stream of screen output that is the log output of messages being sent to the topic named `cdc-events`.
+You see a steady stream of screen output that is the console output of messages being sent to the topic named `cdc-events`.
 
-# Starting an asynchronous consumer
+# Starting a consumer
 
 In another terminal window, go to the directory in which this code is installed and execute the following command:
 
