@@ -3,6 +3,8 @@ package com.kong;
 import java.util.Locale;
 
 public class Main {
+
+    //TODO Currently topic is hardcoded as cdc-events. Pass it via args
     public static void main(String[] args) throws Exception {
 
         String mode = args[0];

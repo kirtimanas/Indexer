@@ -10,6 +10,9 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.concurrent.locks.ReentrantLock;
 
+/**
+ * This class provides a file based implementation of ieventreader
+ */
 @Singleton
 public class FileBasedEventReader implements IEventReader{
 
@@ -17,6 +20,7 @@ public class FileBasedEventReader implements IEventReader{
     private final ReentrantLock lock = new ReentrantLock();
     private final List<String> lines;
 
+    //TODO Remove hardcoding
     public FileBasedEventReader()  {
         try {
             Path path = Paths.get(getClass().getResource("/stream.jsonl").toURI());
@@ -28,6 +32,10 @@ public class FileBasedEventReader implements IEventReader{
         }
     }
 
+    /**
+     * Reads next event from file
+     * @return String next event from file
+     */
     @Override
     public String getNextEvent() {
         lock.lock();
