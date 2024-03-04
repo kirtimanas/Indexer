@@ -59,6 +59,7 @@ public class OpenSearchService {
         }
     }
 
+    //TODO Add failed requests to separate queue to retry
     private void handleBulkResponse(BulkResponse bulkResponses) {
         BulkItemResponse bulkItemResp;
         if (bulkResponses.hasFailures()) {
@@ -67,6 +68,7 @@ public class OpenSearchService {
             for (BulkItemResponse bulkResponse : bulkResponses) {
                 bulkItemResp = bulkResponse;
                 if (bulkItemResp.isFailed()) {
+                 //   bulkItemResp.get
                     failedCount++;
                     String errorMessage = bulkItemResp.getFailure().getMessage();
                     String restResponse = bulkItemResp.getFailure().getStatus().name();

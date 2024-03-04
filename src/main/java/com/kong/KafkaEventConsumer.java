@@ -82,7 +82,7 @@ public class KafkaEventConsumer extends AbstractKafka {
                     callback.processBulkMessage(records);
                 }
 
-                Thread.sleep(1000);
+               // Thread.sleep(1000);
             }
         } catch (WakeupException e) {
             if (!closed.get()) throw e;
