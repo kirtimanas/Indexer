@@ -48,7 +48,10 @@ public class KafkaEventConsumer extends AbstractKafka {
             return;
         }
         log.info("Closing consumer");
-        if( this.getKafkaConsumer() != null) this.getKafkaConsumer().close();
+        if( this.getKafkaConsumer() != null) {
+            this.getKafkaConsumer().commitSync();
+            this.getKafkaConsumer().close();
+        }
     }
 
     /**
@@ -82,6 +85,8 @@ public class KafkaEventConsumer extends AbstractKafka {
                 else if (records.count() > 0) {
                     callback.processBulkMessage(records);
                 }
+
+                getKafkaConsumer().commitAsync();
 
                // Thread.sleep(1000);
             }
